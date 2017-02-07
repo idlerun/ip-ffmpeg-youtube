@@ -18,7 +18,8 @@ YOUTUBE_STREAM_NAME=$1
 while :
 do
   echo "Checking for recording to upload"
-  FILE=$(ls -1 /data/*-*-*_*-*-*.mp4 | grep -v DONE | head -n 1)
+  # unchecked mp4 files except the most recent (currently being written) 
+  FILE=$(ls -1 /data/*-*-*_*-*-*.mp4 | grep -v DONE | head -n -1 | head -n 1)
   if [ "X$FILE" != "X" ]; then
     echo "Found $FILE to upload"
     ffmpeg \
