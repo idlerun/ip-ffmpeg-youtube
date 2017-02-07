@@ -35,7 +35,7 @@ if [ "$#" -gt 2 ]; then
       "%Y-%m-%d_%H-%M-%S.mp4" \
     -f mpegts - | ffmpeg \
       -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=44100 \
-      -f mpegts -r 1200 -i - \
+      -thread_queue_size 128 -f mpegts -r 1200 -i - \
       -shortest \
       -map 0:a:0 -c:a aac -b:a 16k \
       -map 1:v:0 -c:v libx264 -preset veryfast -g 1 -x264opts no-scenecut -b:v 1000k \
