@@ -22,8 +22,7 @@ do
   echo "Downloading video for 5 seconds"
   echo $URL | while read U ; do
     echo "Download $U"
-    ffmpeg -t 5 -i "$U" -f null -
-  done
+    ffmpeg -i "$U" -t 5 -f null -
   done
   echo "Waiting for 10 minutes"
   sleep 600
