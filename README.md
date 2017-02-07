@@ -78,6 +78,12 @@ Modify the command below to insert your own IP Camera RTSP Address and YouTube S
 docker run --restart=always -v ~/recordings:/data -d --name stream-upload idlerun/youtube-live-stream -- rtsp://192.168.56.23/user=admin_password=_channel=1_stream=0.sdp p1tt-db3b-11xv-5a1n
 ```
 
+Depending on the IP camera being used, it may or may not be needed to actually transcode the media stream from the camera. Ideally the stream can just be directly forwarded to YouTube. This is the default. If the steam needs to be recoded the extra argument `--recode` should be added to the docker cli like so:
+
+```
+docker run --restart=always -v ~/recordings:/data -d --name stream-upload idlerun/youtube-live-stream -- rtsp://192.168.56.23/user=admin_password=_channel=1_stream=0.sdp p1tt-db3b-11xv-5a1n --recode
+```
+
 
 ## Step 6: Periodic Download (Optional)
 
