@@ -24,7 +24,7 @@ do
     echo "Found $FILE to upload"
     ffmpeg \
       -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=44100 \
-      -r 1800 -i "$FILE" \
+      -re -r 1800 -i "$FILE" \
       -shortest \
       -map 0:a:0 -c:a aac -b:a 16k \
       -filter:v "fps=60" \
