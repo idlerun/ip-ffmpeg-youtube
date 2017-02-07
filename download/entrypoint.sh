@@ -20,9 +20,9 @@ echo "Stream internal address(es): $URL"
 while :
 do
   echo "Downloading video for 5 seconds"
-  echo $URL | while read U ; do
+  echo "$URL" | while read U ; do
     echo "Download $U"
-    ffmpeg -t 5 -i $U -f null -
+    ffmpeg -t 5 -i "$U" -f null -
   done
   echo "Waiting for 10 minutes"
   sleep 600
