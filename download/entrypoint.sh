@@ -22,7 +22,7 @@ do
   echo "Downloading video for 5 seconds"
   echo $URL | while read U ; do
     echo "Download $U"
-    ffmpeg -y -i $U -t 5 -an -c:v libx264 -preset superfast stream-$U.mp4
+    ffmpeg -y -i $U -t 5 -f null -
   done
   done
   echo "Waiting for 10 minutes"
