@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/sh
 
 if [ "$#" -ne 1 ]; then
   >&2 echo "Required arguments: YOUTUBE_STREAM_URL"
@@ -22,7 +22,7 @@ do
   echo "Downloading video for 5 seconds"
   echo $URL | while read U ; do
     echo "Download $U"
-    ffmpeg -y -i $U -t 5 -f null -
+    ffmpeg -t 5 -i "$U" -f null -
   done
   done
   echo "Waiting for 10 minutes"
