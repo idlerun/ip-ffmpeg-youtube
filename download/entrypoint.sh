@@ -15,12 +15,16 @@ cd /data
 YOUTUBE_STREAM_URL=$1
 echo "YOUTUBE_STREAM_URL=$YOUTUBE_STREAM_URL"
 URL=$(youtube-dl -g -f 93 $YOUTUBE_STREAM_URL)
-echo "Stream internal address is $URL"
+echo "Stream internal address(es): $URL"
 
 while :
 do
   echo "Downloading video for 5 seconds"
-  ffmpeg -y -i $URL -t 5 -an -c:v libx264 -preset superfast stream.mp4
+  echo $URL | while read U ; do
+    echo "Download $U"
+    ffmpeg -y -i $U -t 5 -an -c:v libx264 -preset superfast stream-$U.mp4
+  done
+  done
   echo "Waiting for 10 minutes"
   sleep 600
 done

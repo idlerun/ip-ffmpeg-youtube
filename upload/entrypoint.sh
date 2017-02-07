@@ -27,7 +27,7 @@ exec ffmpeg \
   -map 0:a -c:a aac -b:a 16k \
   -map 1:v -c:v libx264 -preset superfast -tune zerolatency -x264-params keyint=60:no-scenecut -b:v 900k \
   -f flv rtmp://a.rtmp.youtube.com/live2/$YOUTUBE_STREAM_NAME \
-  -f segment -reset_timestamps 1 -segment_time 3600 -segment_format mp4 -segment_atclocktime 1 -strftime 1 \
+  -f segment -reset_timestamps 1 -segment_time 600 -segment_format mp4 -segment_atclocktime 1 -strftime 1 \
     "%Y-%m-%d_%H-%M-%S.mp4"
 
 
