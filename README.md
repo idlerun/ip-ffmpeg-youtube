@@ -75,8 +75,7 @@ Your live event Injestion Settings page will provide your (secret) Stream Name, 
 Modify the command below to insert your own IP Camera RTSP Address and YouTube Stream Name:
 
 ```
-docker run --restart=always -v
-/etc/localtime:/etc/localtime -v ~/recordings:/data -d --name stream-upload idlerun/youtube-live-stream -- rtsp://192.168.56.23/user=admin_password=_channel=1_stream=0.sdp p1tt-db3b-11xv-5a1n
+docker run --restart=always -v /etc/localtime:/etc/localtime -v ~/recordings:/data -d --name stream-upload idlerun/youtube-live-stream -- rtsp://192.168.56.23/user=admin_password=_channel=1_stream=0.sdp p1tt-db3b-11xv-5a1n
 ```
 
 This will stream the IP camera to the YouTube live event AND save a segmented video regularly to the mounted `recordings` folder.
@@ -91,8 +90,7 @@ To avoid this happening we can run a job which periodically streams the video fo
 To keep the load as low as possible, it is streaming at the lowest available resolution and only for 5 seconds to ping YouTube to keep the stream from timing out.
 
 ```
-docker run --restart=always -v
-/etc/localtime:/etc/localtime -v ~/recordings:/data -d --name stream-download idlerun/youtube-live-download -- https://www.youtube.com/watch?v=YOURVIDEOID
+docker run --restart=always -v /etc/localtime:/etc/localtime -v ~/recordings:/data -d --name stream-download idlerun/youtube-live-download -- https://www.youtube.com/watch?v=YOURVIDEOID
 ```
 
 
@@ -101,8 +99,7 @@ docker run --restart=always -v
 The `youtube-live-cleanup` container mounts the `recordings` directory and periodically (removes all but the most recent 48 hours of recordings.
 
 ```
-docker run --restart=always -v
-/etc/localtime:/etc/localtime -v ~/recordings:/data -d --name stream-cleanup idlerun/youtube-live-cleanup
+docker run --restart=always -v /etc/localtime:/etc/localtime -v ~/recordings:/data -d --name stream-cleanup idlerun/youtube-live-cleanup
 ```
 
 ## Notes:
