@@ -14,12 +14,12 @@ cd /data
 # -f 93 is for 360p stream
 YOUTUBE_STREAM_URL=$1
 echo "YOUTUBE_STREAM_URL=$YOUTUBE_STREAM_URL"
-URL=$(youtube-dl -g -f 93 $YOUTUBE_STREAM_URL)
-echo "Stream internal address(es): $URL"
 
 while :
 do
   echo "Downloading video for 5 seconds"
+  URL=$(youtube-dl -g -f 93 $YOUTUBE_STREAM_URL)
+  echo "Stream internal address(es): $URL"
   echo "$URL" | xargs -n 1 -I {} ffmpeg -t 5 -i "{}" -f null -
   echo "Waiting for 10 minutes"
   sleep 600
