@@ -38,7 +38,7 @@ if [ "$#" -gt 2 ]; then
       -thread_queue_size 128 -f mpegts -r 1200 -i - \
       -shortest \
       -map 0:a:0 -c:a aac -b:a 16k \
-      -map 1:v:0 -c:v libx264 -preset medium -g 5 -b:v 10000k \
+      -map 1:v:0 -c:v libx264 -preset medium -g 5 -b:v 50000k \
       -f flv rtmp://a.rtmp.youtube.com/live2/$TIMELAPSE_ID
 else
   exec ffmpeg \
