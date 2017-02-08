@@ -29,7 +29,7 @@ if [ "$#" -gt 2 ]; then
     -shortest \
     -vf "fps=30" \
     -map 0:a:0 -c:a aac -b:a 16k \
-    -map 1:v:0 -c:v libx264 -preset veryfast -g 90 -b:v 1000k \
+    -map 1:v:0 -c:v libx264 -preset veryfast -g 90 -crf 30 \
     -f flv rtmp://a.rtmp.youtube.com/live2/$LIVE_ID \
     -f segment -reset_timestamps 1 -segment_time 600 -segment_format mp4 -segment_atclocktime 1 -strftime 1 \
       "%Y-%m-%d_%H-%M-%S.mp4" \
@@ -38,7 +38,7 @@ if [ "$#" -gt 2 ]; then
       -thread_queue_size 128 -f mpegts -r 1200 -i - \
       -shortest \
       -map 0:a:0 -c:a aac -b:a 16k \
-      -map 1:v:0 -c:v libx264 -preset medium -g 5 -b:v 50000k \
+      -map 1:v:0 -c:v libx264 -preset medium -g 5 -crf 28 \
       -f flv rtmp://a.rtmp.youtube.com/live2/$TIMELAPSE_ID
 else
   exec ffmpeg \
@@ -47,7 +47,7 @@ else
     -shortest \
     -vf "fps=30" \
     -map 0:a:0 -c:a aac -b:a 16k \
-    -map 1:v:0 -c:v libx264 -preset veryfast -g 90 -b:v 1000k \
+    -map 1:v:0 -c:v libx264 -preset veryfast -g 90 -crf 30 \
     -f flv rtmp://a.rtmp.youtube.com/live2/$LIVE_ID \
     -f segment -reset_timestamps 1 -segment_time 600 -segment_format mp4 -segment_atclocktime 1 -strftime 1 \
       "%Y-%m-%d_%H-%M-%S.mp4"
