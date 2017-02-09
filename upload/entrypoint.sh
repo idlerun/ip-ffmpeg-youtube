@@ -26,7 +26,7 @@ exec ffmpeg \
   -shortest \
   -vf "fps=30" \
   -map 0:a:0 -c:a aac -b:a 16k \
-  -map 1:v:0 -c:v libx264 -preset veryfast -crf 30 -gop 90 \
+  -map 1:v:0 -c:v libx264 -preset veryfast -crf 30 -g 90 \
   -f flv rtmp://a.rtmp.youtube.com/live2/$LIVE_ID \
   -f segment -reset_timestamps 1 -segment_time 600 -segment_format mp4 -segment_atclocktime 1 -strftime 1 \
     "%Y-%m-%d_%H-%M-%S.mp4"
