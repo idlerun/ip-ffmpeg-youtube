@@ -20,38 +20,16 @@ LIVE_ID=$2
 ## Note: YouTube will not accept a stream without audio, even if there is none
 ## Getting audio from /dev/zero to fill it in with something
 
-if [ "$#" -gt 2 ]; then
-  TIMELAPSE_ID=$3
-  >&2 echo "TIMELAPSE_ID=$TIMELAPSE_ID"
-  exec ffmpeg \
-    -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=44100 \
-    -thread_queue_size 128 -i $IP_CAMERA_ADDRESS \
-    -shortest \
-    -vf "fps=30" \
-    -map 0:a:0 -c:a aac -b:a 16k \
-    -map 1:v:0 -c:v libx264 -preset superfast -crf 30 \
-    -f flv rtmp://a.rtmp.youtube.com/live2/$LIVE_ID \
-    -f segment -reset_timestamps 1 -segment_time 600 -segment_format mp4 -segment_atclocktime 1 -strftime 1 \
-      "%Y-%m-%d_%H-%M-%S.mp4" \
-    -f mpegts - | ffmpeg \
-      -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=44100 \
-      -thread_queue_size 128 -f mpegts -r 1200 -i - \
-      -shortest \
-      -map 0:a:0 -c:a aac -b:a 16k \
-      -map 1:v:0 -c:v libx264 -preset faster -g 5 -crf 28 \
-      -f flv rtmp://a.rtmp.youtube.com/live2/$TIMELAPSE_ID
-else
-  exec ffmpeg \
-    -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=44100 \
-    -thread_queue_size 128 -i $IP_CAMERA_ADDRESS \
-    -shortest \
-    -vf "fps=30" \
-    -map 0:a:0 -c:a aac -b:a 16k \
-    -map 1:v:0 -c:v libx264 -preset superfast -crf 30 \
-    -f flv rtmp://a.rtmp.youtube.com/live2/$LIVE_ID \
-    -f segment -reset_timestamps 1 -segment_time 600 -segment_format mp4 -segment_atclocktime 1 -strftime 1 \
-      "%Y-%m-%d_%H-%M-%S.mp4"
-fi
+exec ffmpeg \
+  -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=44100 \
+  -thread_queue_size 128 -i $IP_CAMERA_ADDRESS \
+  -shortest \
+  -vf "fps=30" \
+  -map 0:a:0 -c:a aac -b:a 16k \
+  -map 1:v:0 -c:v libx264 -preset veryfast -crf 30 -gop 90 \
+  -f flv rtmp://a.rtmp.youtube.com/live2/$LIVE_ID \
+  -f segment -reset_timestamps 1 -segment_time 600 -segment_format mp4 -segment_atclocktime 1 -strftime 1 \
+    "%Y-%m-%d_%H-%M-%S.mp4"
 
 
 # for no recoding, just direct stream forward from camera
